@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarouselViewBugs.CarouselContentView"
+             x:Name="carouselContentView"
+             >
+
+    <Grid>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Current item is "/>
+                <Label Text="{Binding Source={x:Reference carousel}, Path=CurrentItem}"/>
+            </HorizontalStackLayout>
+
+            <CarouselView WidthRequest="200" 
+                      HeightRequest="200"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center"
+                              PeekAreaInsets="65" 
+                              x:Name="carousel" 
+                              Loop="True" 
+                              ItemsSource="{Binding Source={x:Reference carouselContentView}, Path=Items}">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" SnapPointsAlignment="Center" SnapPointsType="MandatorySingle"/>
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="CurrentItem">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Red"/>
+                                            <Setter Property="Scale" Value="1"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="PreviousItem">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale" Value="0.6" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="NextItem">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale" Value="0.6"/>
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Label VerticalOptions="Center" TextColor="Blue" HorizontalOptions="Center"  FontSize="40" Text="{Binding}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentView>
